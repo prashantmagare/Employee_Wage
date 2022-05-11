@@ -18,7 +18,7 @@ namespace EmpWage
             //It is using to generate random numbers
             Random random = new Random();
             //Computation
-            int empCheck = random.Next(0, 2);
+            int empCheck = random.Next(0, 3);
 
             switch (empCheck)
             {
