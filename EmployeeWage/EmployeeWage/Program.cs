@@ -1,18 +1,27 @@
 ﻿using System;
-//Switch Case 
+//compute wage for multiple Company 
 namespace EmpWage
 {
-    internal class Program
+    internal class EmployeeWageBuilderObject
     {
 
         //Constants
         public const int IS_PART_TIME = 1;
         public const int IS_FULL_TIME = 2;
-        public const int Emp_RATE_PER_HOUR = 20;
-        public const int NUM_OF_WORKING_DAYS = 20;
-        public const int MAX_HRS_IN_MONTH = 100;
-        public const int days_in_month = 20;
-        static void ComputeWage()
+        public string company;
+        public int emp_Rate_Per_Hr;
+        public int no_Of_Working_Days;
+        public int max_Hours_Per_Month;
+        public int total_Emp_Wage;
+
+        public EmployeeWageBuilderObject(string company, int emp_Rate_Per_Hr, int no_Of_Working_DAys, int max_Hours_Per_Month)
+        {
+            this.company = company;
+            this.emp_Rate_Per_Hr = emp_Rate_Per_Hr;
+            this.no_Of_Working_Days = no_Of_Working_DAys;
+            this.max_Hours_Per_Month = max_Hours_Per_Month;
+        }
+        public void ComputeWage()
         {
             //Variables
             int empHrs = 0;
@@ -21,47 +30,53 @@ namespace EmpWage
 
 
             //Computation
-            while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS)
+            while (totalEmpHrs <= this.max_Hours_Per_Month && totalEmpHrs < this.no_Of_Working_Days)
             {
-                //It is using to generate random numbers
+                totalWorkingDays++;
                 Random random = new Random();
-            //Computation
-            int empCheck = random.Next(0, 3);
+                int empCheck = random.Next(0, 3);
 
-            switch (empCheck)
-            {
-                case IS_PART_TIME:
-                    Console.WriteLine("Employee is present");
-                    empHrs = 4;
-                    break;
-                case IS_FULL_TIME:
-                    Console.WriteLine("Employee is also present");
-                    empHrs = 8;
-                    break;
-                default:
-                    Console.WriteLine("Employee is Absent");
-                    empHrs = 0;
-                    break;
+                switch (empCheck)
+                {
+                    case IS_PART_TIME:
+                        Console.WriteLine("Employee is present");
+                        empHrs = 4;
+                        break;
+                    case IS_FULL_TIME:
+                        Console.WriteLine("Employee is also present");
+                        empHrs = 8;
+                        break;
+                    default:
+                        Console.WriteLine("Employee is Absent");
+                        empHrs = 0;
+                        break;
+
+                }
+
+
+                totalEmpHrs = totalEmpHrs + empHrs;
+                Console.WriteLine("Days:" + totalWorkingDays + " Emp Hrs : " + empHrs);
 
             }
-               
 
-                    totalEmpHrs += empHrs;
-                Console.WriteLine("Days : " + totalWorkingDays + " Emp Hrs : " + empHrs);
-              
-            }
 
-            
-                Console.WriteLine("Total Employee Hrs is " + totalEmpHrs);
+            Console.WriteLine("Total Employee Hrs is " + totalEmpHrs);
 
-                int totalEmpWage = totalEmpHrs * Emp_RATE_PER_HOUR;
-                Console.WriteLine("Total Employee Wage : " + totalEmpWage);
-            
+            total_Emp_Wage = totalEmpHrs * this.emp_Rate_Per_Hr;
+            Console.WriteLine("Total Employee Wage  For Comapny = " + company + " is : " + total_Emp_Wage);
+
         }
-         static void Main(string[] args)
+        
+    }
+    public class Program
+    {
+        public static void Main(string[] args)
         {
-            ComputeWage();
+            EmployeeWageBuilderObject dmart = new EmployeeWageBuilderObject("Dmart", 20, 2, 10);
+            EmployeeWageBuilderObject reliance = new EmployeeWageBuilderObject("Reliance", 10, 4, 20);
+            dmart.ComputeWage();
+            reliance.ComputeWage();
+           
         }
-
     }
 }
